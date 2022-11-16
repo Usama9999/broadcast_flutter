@@ -51,7 +51,7 @@ class _UpperPartState extends State<UpperPart> {
                 return Card(
                   child: ListTile(
                     title: const Text(
-                      'State:',
+                      'Data:',
                       style: TextStyle(
                         color: Colors.white,
                       ),
