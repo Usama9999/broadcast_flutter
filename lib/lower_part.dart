@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:broadcast_app/controllers/navbar_controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_broadcasts/flutter_broadcasts.dart';
@@ -28,9 +26,11 @@ class _LowerPartState extends State<LowerPart> {
     super.initState();
     receiver.messages.listen(((event) {
       // showAlert(event.data!['state']);
-      log(event.data!['state'].toString());
-      message.add(event.data!['state']);
-      controller.changeLower(event.data!['state']);
+      message.add(event.data.toString());
+      setState(() {});
+      if (event.data!.containsKey('state')) {
+        controller.changeLower(event.data!['state']);
+      }
     }));
     receiver.start();
   }
@@ -50,7 +50,7 @@ class _LowerPartState extends State<LowerPart> {
                 return Card(
                   child: ListTile(
                     title: const Text(
-                      'State:',
+                      'Data:',
                       style: TextStyle(
                         color: Colors.white,
                       ),

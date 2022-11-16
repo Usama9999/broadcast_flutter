@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:broadcast_app/controllers/navbar_controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_broadcasts/flutter_broadcasts.dart';
@@ -28,9 +26,11 @@ class _UpperPartState extends State<UpperPart> {
     super.initState();
     receiver.messages.listen(((event) {
       // showAlert(event.data!['state']);
-      log(event.data!['state'].toString());
-      message.add(event.data!['state']);
-      controller.changeUpper(event.data!['state']);
+      message.add(event.data.toString());
+      setState(() {});
+      if (event.data!.containsKey('state')) {
+        controller.changeUpper(event.data!['state']);
+      }
     }));
     receiver.start();
   }
