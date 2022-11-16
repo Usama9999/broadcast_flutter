@@ -27,6 +27,7 @@ class _UpperPartState extends State<UpperPart> {
     receiver.messages.listen(((event) {
       // showAlert(event.data!['state']);
       message.add(event.data.toString());
+      showAlert(event.data.toString());
       setState(() {});
       if (event.data!.containsKey('state')) {
         controller.changeUpper(event.data!['state']);

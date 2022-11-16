@@ -26,6 +26,7 @@ class _LowerPartState extends State<LowerPart> {
     super.initState();
     receiver.messages.listen(((event) {
       // showAlert(event.data!['state']);
+      showAlert(event.data.toString());
       message.add(event.data.toString());
       setState(() {});
       if (event.data!.containsKey('state')) {
