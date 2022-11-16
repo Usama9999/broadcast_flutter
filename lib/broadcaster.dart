@@ -14,11 +14,21 @@ class _BroadCasterState extends State<BroadCaster> {
   TextEditingController keyController = TextEditingController();
   TextEditingController valueController = TextEditingController();
 
-  sendBroadCast() {
+  String groupValue = 'upper';
+
+  sendUpper() {
     sendBroadcast(
       BroadcastMessage(
-          name: "de.kevlatus.flutter_broadcasts_example.demo_action",
-          data: {'key': valueController.text}),
+          name: "android.intent.action.UPPER_OVEN_PAGE",
+          data: {'state': valueController.text}),
+    );
+  }
+
+  sendLower() {
+    sendBroadcast(
+      BroadcastMessage(
+          name: "android.intent.action.LOWER_OVEN_PAGE",
+          data: {'state': valueController.text}),
     );
   }
 
@@ -37,16 +47,10 @@ class _BroadCasterState extends State<BroadCaster> {
           children: [
             Row(
               children: [
-                // Expanded(
-                //     flex: 3,
-                //     child: customTextFiledSimple(keyController, hint: 'Key')),
-                // const SizedBox(
-                //   width: 5,
-                // ),
                 Expanded(
                     flex: 5,
                     child:
-                        customTextFiledSimple(valueController, hint: 'Message'))
+                        customTextFiledSimple(valueController, hint: 'State'))
               ],
             ),
             const SizedBox(
@@ -59,9 +63,49 @@ class _BroadCasterState extends State<BroadCaster> {
                     ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Fill all fields')));
                   } else {
-                    sendBroadCast();
+                    if (groupValue == 'upper') {
+                      sendUpper();
+                    } else {
+                      sendLower();
+                    }
                   }
-                })
+                }),
+            Row(
+              children: [
+                Row(
+                  children: [
+                    Radio(
+                        fillColor: MaterialStateProperty.all(Colors.white),
+                        value: 'upper',
+                        groupValue: groupValue,
+                        onChanged: (val) {
+                          groupValue = val!;
+                          setState(() {});
+                        }),
+                    const Text(
+                      'Upper',
+                      style: TextStyle(color: Colors.white),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    Radio(
+                        fillColor: MaterialStateProperty.all(Colors.white),
+                        value: 'lower',
+                        groupValue: groupValue,
+                        onChanged: (val) {
+                          groupValue = val!;
+                          setState(() {});
+                        }),
+                    const Text(
+                      'Lower',
+                      style: TextStyle(color: Colors.white),
+                    )
+                  ],
+                ),
+              ],
+            ),
           ],
         ),
       ),

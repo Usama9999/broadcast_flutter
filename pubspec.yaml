@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2 
   flutter_broadcasts: ^0.3.0
   overlay_support: ^2.0.1
+  get: ^4.6.5
 
 dev_dependencies:
   flutter_test:

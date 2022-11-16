@@ -1,42 +1,42 @@
 import 'dart:developer';
 
+import 'package:broadcast_app/controllers/navbar_controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_broadcasts/flutter_broadcasts.dart';
+import 'package:get/get.dart';
 import 'package:overlay_support/overlay_support.dart';
 
-class BroadcastReciver extends StatefulWidget {
-  const BroadcastReciver({super.key});
+class UpperPart extends StatefulWidget {
+  const UpperPart({super.key});
 
   @override
-  State<BroadcastReciver> createState() => _BroadcastReciverState();
+  State<UpperPart> createState() => _UpperPartState();
 }
 
-class _BroadcastReciverState extends State<BroadcastReciver> {
+class _UpperPartState extends State<UpperPart> {
   BroadcastReceiver receiver = BroadcastReceiver(
     names: <String>[
-      "de.kevlatus.flutter_broadcasts_example.demo_action",
+      "android.intent.action.UPPER_OVEN_PAGE",
     ],
   );
 
   List<String> message = [];
+  var controller = Get.put(NavBarController());
 
   @override
   void initState() {
     super.initState();
     receiver.messages.listen(((event) {
-      showAlert(event.data!['key']);
-      log(event.data!['key'].toString());
-      message.add(event.data!['key']);
-      // setState(() {
-
-      // });
+      // showAlert(event.data!['state']);
+      log(event.data!['state'].toString());
+      message.add(event.data!['state']);
+      controller.changeUpper(event.data!['state']);
     }));
     receiver.start();
   }
 
   @override
   void dispose() {
-    // receiver.stop();
     super.dispose();
   }
 
@@ -50,7 +50,7 @@ class _BroadcastReciverState extends State<BroadcastReciver> {
                 return Card(
                   child: ListTile(
                     title: const Text(
-                      'Message:',
+                      'State:',
                       style: TextStyle(
                         color: Colors.white,
                       ),
